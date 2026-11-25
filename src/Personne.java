@@ -15,7 +15,7 @@ public class Personne {
         this.id=-1;
     }
 
-    public ArrayList<Personne> findAll() throws SQLException {
+    public static ArrayList<Personne> findAll() throws SQLException {
         ArrayList<Personne> liste = new ArrayList<Personne>();
         Connection connection = DBConnection.getInstance().getConnection();
 
@@ -34,7 +34,7 @@ public class Personne {
         return liste;
     }
 
-    public Personne findById(int num) throws SQLException {
+    public static Personne findById(int num) throws SQLException {
         Personne p = null;
         Connection connection = DBConnection.getInstance().getConnection();
 
@@ -49,7 +49,7 @@ public class Personne {
     }
 
 
-    public ArrayList<Personne> findByName(String n) throws SQLException {
+    public static ArrayList<Personne> findByName(String n) throws SQLException {
         ArrayList<Personne> liste = new ArrayList<Personne>();
         Connection connection = DBConnection.getInstance().getConnection();
 
