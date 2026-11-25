@@ -19,7 +19,7 @@ public class Personne {
         ArrayList<Personne> liste = new ArrayList<Personne>();
         Connection connection = DBConnection.getInstance().getConnection();
 
-        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Personne");
+        PreparedStatement preparedStatement = connection.prepareStatement("select * from Personne");
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()){
@@ -32,6 +32,20 @@ public class Personne {
             liste.add(p);
         }
         return liste;
+    }
+
+    public Personne findById(int l) throws SQLException {
+        Personne p = null;
+        Connection connection = DBConnection.getInstance().getConnection();
+
+        PreparedStatement ps = connection.prepareStatement("select * from Personne where id=?");
+        ps.setInt(1, id);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()){
+            p = new Personne(rs.getString("nom"), rs.getString("prenom"));
+            p.setId(rs.getInt("id"));
+        }
+        return p;
     }
 
     public String getPrenom() {
