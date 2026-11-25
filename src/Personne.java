@@ -34,18 +34,39 @@ public class Personne {
         return liste;
     }
 
-    public Personne findById(int l) throws SQLException {
+    public Personne findById(int num) throws SQLException {
         Personne p = null;
         Connection connection = DBConnection.getInstance().getConnection();
 
         PreparedStatement ps = connection.prepareStatement("select * from Personne where id=?");
-        ps.setInt(1, id);
+        ps.setInt(1, num);
         ResultSet rs = ps.executeQuery();
         if (rs.next()){
             p = new Personne(rs.getString("nom"), rs.getString("prenom"));
             p.setId(rs.getInt("id"));
         }
         return p;
+    }
+
+
+    public ArrayList<Personne> findByName(String n) throws SQLException {
+        ArrayList<Personne> liste = new ArrayList<Personne>();
+        Connection connection = DBConnection.getInstance().getConnection();
+
+        PreparedStatement ps = connection.prepareStatement("select * from Personne where name = ?");
+        ps.setInt(1, n);
+        ResultSet resultSet = ps.executeQuery();
+
+        while (resultSet.next()){
+            int id = resultSet.getInt("id");
+            String nom = resultSet.getString("nom");
+            String prenom = resultSet.getString("prenom");
+
+            Personne p = new Personne(nom, prenom);
+            p.id = id;
+            liste.add(p);
+        }
+        return liste;
     }
 
     public String getPrenom() {
