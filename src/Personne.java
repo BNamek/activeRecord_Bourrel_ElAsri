@@ -53,8 +53,8 @@ public class Personne {
         ArrayList<Personne> liste = new ArrayList<Personne>();
         Connection connection = DBConnection.getInstance().getConnection();
 
-        PreparedStatement ps = connection.prepareStatement("select * from Personne where name = ?");
-        ps.setInt(1, n);
+        PreparedStatement ps = connection.prepareStatement("select * from Personne where nom = ?");
+        ps.setString(1, n);
         ResultSet resultSet = ps.executeQuery();
 
         while (resultSet.next()){
